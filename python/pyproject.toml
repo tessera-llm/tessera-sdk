@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tessera-llm-proxy"
+version = "0.1.0"
+description = "Tessera SDK — drop-in LLM cost optimization. One line patches OpenAI, Anthropic, Mistral, Groq, Cohere clients to route through Tessera's auto-route + auto-cache + auto-compress + auto-batch proxy. Free tier: 60M tokens/mo. Production: 20% of measured savings, $0 if none."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+authors = [
+  { name = "Tessera (Fintechagency OÜ)", email = "contact@tesseraai.io" }
+]
+keywords = [
+  "tessera",
+  "llm",
+  "openai",
+  "anthropic",
+  "mistral",
+  "groq",
+  "cohere",
+  "cost-optimization",
+  "ai-cost",
+  "llm-cost",
+  "ai-proxy",
+  "llm-proxy",
+  "observability",
+  "gpt-4o",
+  "claude",
+  "gemini",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+test = [
+  "pytest>=7.0",
+  "pytest-mock>=3.0",
+]
+
+[project.urls]
+Homepage = "https://tesseraai.io"
+Documentation = "https://tesseraai.io/dev"
+Repository = "https://github.com/tessera-llm/sdk"
+Issues = "https://github.com/tessera-llm/sdk/issues"
+Changelog = "https://github.com/tessera-llm/sdk/releases"
+
+[tool.hatch.build.targets.wheel]
+packages = ["tessera"]
