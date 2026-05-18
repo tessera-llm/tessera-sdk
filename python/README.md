@@ -14,7 +14,7 @@
 After signup you get:
 - Your `tk_` API key (shown once)
 - A magic-link for the [dashboard](https://ledger.tesseraai.io/portal) — see your token counter + savings counter live
-- 60M tokens/month at 10 req/min — generous for hobby + side projects
+- 60M tokens/month at 30 req/min — generous for hobby + side projects
 
 ## Install
 
