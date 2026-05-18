@@ -223,7 +223,7 @@ Each request emits two cost figures: `original_cost_usd` (priced at the **reques
 
 ### Can I see what mechanics fired on a specific request?
 
-Yes. `/portal/audit` shows a chip strip per request (`m1`, `m2`, `m3`, etc.). Each request_id is searchable by `feature_tag` / `customer_tag` headers you can set per call. Full [API reference](https://docs.tesseraai.io).
+Yes. `/portal/audit` shows a chip strip per request (`m1`, `m2`, `m3`, etc.). Each request_id is searchable by `feature_tag` / `customer_tag` headers you can set per call. Full mechanic reference at [tesseraai.io/how-it-works](https://tesseraai.io/how-it-works).
 
 ### What if I want to opt out of a specific mechanic?
 
@@ -237,7 +237,8 @@ Per workload, in `/portal/settings`: toggle any of the seven mechanics on/off. O
 - **Node SDK:** [./node/README.md](./node/README.md)
 - **Architecture:** [tesseraai.io/how-it-works](https://tesseraai.io/how-it-works)
 - **Quality SLA:** [tesseraai.io/security](https://tesseraai.io/security)
-- **API reference:** [docs.tesseraai.io](https://docs.tesseraai.io)
+- **Mechanic reference:** [tesseraai.io/how-it-works](https://tesseraai.io/how-it-works)
+- **Engineering blog:** [tesseraai.io/blog](https://tesseraai.io/blog)
 
 ---
 
