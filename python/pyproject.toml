@@ -51,13 +51,23 @@ test = [
   "pytest>=7.0",
   "pytest-mock>=3.0",
 ]
+# `dev` mirrors `test` — keeps `pip install -e ".[dev]"` (the convention
+# CONTRIBUTING.md tells contributors to run) working without forcing
+# them to remember the alternate `[test]` name.
+dev = [
+  "pytest>=7.0",
+  "pytest-mock>=3.0",
+]
 
 [project.urls]
 Homepage = "https://tesseraai.io"
 Documentation = "https://tesseraai.io/dev"
 Repository = "https://github.com/tessera-llm/sdk"
 Issues = "https://github.com/tessera-llm/sdk/issues"
-Changelog = "https://github.com/tessera-llm/sdk/releases"
+Changelog = "https://github.com/tessera-llm/sdk/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["tessera"]
+# Ship the PEP 561 marker so downstream `mypy --strict` recognises the
+# package as typed (without it, mypy emits "Skipping analyzing 'tessera'").
+include = ["tessera/py.typed"]
