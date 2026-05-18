@@ -1,0 +1,45 @@
+name: Publish Python (tessera-llm-proxy) to PyPI
+
+# Fires on a tag matching `python-v*` (e.g. python-v0.1.0). Builds the
+# wheel + sdist in python/ and publishes to PyPI via twine using the
+# PYPI_TOKEN repo secret. Workflow tagged 2026-05-23.
+
+on:
+  push:
+    tags:
+      - 'python-v*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Build + upload tessera-llm-proxy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    defaults:
+      run:
+        working-directory: python
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install build tools
+        run: pip install --upgrade build twine
+
+      - name: Build distributions
+        run: python -m build
+
+      - name: Verify metadata
+        run: python -m twine check dist/*
+
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        run: python -m twine upload dist/*

@@ -1,0 +1,83 @@
+{
+  "name": "@tessera-llm/sdk",
+  "version": "0.1.0",
+  "description": "Tessera SDK — drop-in LLM cost optimization. One line patches OpenAI, Anthropic, Mistral, Groq, Cohere clients to route through Tessera's auto-route + auto-cache + auto-compress + auto-batch proxy. Free 60M tokens/mo. Production: 20% of measured savings, $0 if none.",
+  "keywords": [
+    "tessera",
+    "llm",
+    "openai",
+    "anthropic",
+    "mistral",
+    "groq",
+    "cohere",
+    "cost-optimization",
+    "ai-cost",
+    "llm-cost",
+    "ai-proxy",
+    "llm-proxy",
+    "observability",
+    "gpt-4o",
+    "claude",
+    "gemini",
+    "typescript"
+  ],
+  "homepage": "https://tesseraai.io/dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tessera-llm/sdk.git",
+    "directory": "node"
+  },
+  "bugs": {
+    "url": "https://github.com/tessera-llm/sdk/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Tessera (Fintechagency OÜ) <contact@tesseraai.io>",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --target node18",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "@anthropic-ai/sdk": "*",
+    "@mistralai/mistralai": "*",
+    "cohere-ai": "*",
+    "groq-sdk": "*",
+    "openai": "*"
+  },
+  "peerDependenciesMeta": {
+    "@anthropic-ai/sdk": { "optional": true },
+    "@mistralai/mistralai": { "optional": true },
+    "cohere-ai": { "optional": true },
+    "groq-sdk": { "optional": true },
+    "openai": { "optional": true }
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
