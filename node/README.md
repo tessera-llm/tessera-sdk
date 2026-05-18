@@ -14,7 +14,7 @@
 After signup you get:
 - Your `tk_` API key (shown once)
 - A magic-link for the [dashboard](https://ledger.tesseraai.io/portal) — see your token counter + savings counter live
-- 60M tokens/month at 10 req/min — generous for hobby + side projects
+- 60M tokens/month at 30 req/min — generous for hobby + side projects
 
 ## Install
 
@@ -122,7 +122,7 @@ Two tiers:
 | | **Free Dev** | **Production** |
 |---|---|---|
 | Token throughput | 60M / month | Unlimited |
-| Rate limit | 10 req / min | 60 req / min |
+| Rate limit | 30 req / min | 60 req / min |
 | Performance fee | $0 | **20%** of measured savings · $0 if none |
 | Balance management | — | Stripe top-ups ($100 min) |
 | Monthly Reading PDF | — | Audit-grade ledger |

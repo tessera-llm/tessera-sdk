@@ -173,7 +173,7 @@ Provider keys (your OpenAI `sk-…`, Anthropic `sk-ant-…`, etc.) stay in your 
 | | **Free Dev** | **Production** |
 |---|---|---|
 | Token throughput | 60M / month | Unlimited |
-| Rate limit | 10 req / min | 60 req / min |
+| Rate limit | 30 req / min | 60 req / min |
 | Performance fee | $0 | **20%** of measured savings · $0 if none |
 | Balance management | — | Stripe top-ups ($100 min) |
 | Monthly savings statement | — | Audit-grade PDF |
@@ -263,7 +263,7 @@ We don't inspect prompt content. The proxy forwards your request body upstream b
 
 ### What happens to my OpenAI / Anthropic rate limits?
 
-Your provider rate limits are unchanged. Tessera forwards your provider key upstream, so you stay on whatever tier your account holds. Our own rate limits (10 req/min on Free Dev, 60 req/min on Production) apply on top — they exist to prevent abuse of the free tier and are lifted on request for Production customers with confirmed traffic spikes. Email [founder@tesseraai.io](mailto:founder@tesseraai.io).
+Your provider rate limits are unchanged. Tessera forwards your provider key upstream, so you stay on whatever tier your account holds. Our own rate limits (30 req/min on Free Dev, 60 req/min on Production) apply on top — they exist to prevent abuse of the free tier and are lifted on request for Production customers with confirmed traffic spikes. Email [founder@tesseraai.io](mailto:founder@tesseraai.io).
 
 ### What happens if Tessera is down?
 
