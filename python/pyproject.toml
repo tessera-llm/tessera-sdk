@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "tessera-llm-proxy"
-version = "0.1.0"
+version = "0.1.1"
 description = "Tessera SDK — drop-in LLM cost optimization. One line patches OpenAI, Anthropic, Mistral, Groq, Cohere clients to route through Tessera's auto-route + auto-cache + auto-compress + auto-batch proxy. Free tier: 60M tokens/mo. Production: 20% of measured savings, $0 if none."
 readme = "README.md"
 requires-python = ">=3.9"
