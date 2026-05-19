@@ -46,8 +46,11 @@ Tessera is an LLM gateway that sits in your request path. It auto-routes to chea
 - **AI-native SaaS** spending $5k+/month on OpenAI / Anthropic / Gemini and wanting that bill cut without re-architecting.
 - **Vertical AI agents** (sales, support, voice, customer success) where margin compresses as call volume scales.
 - **Engineering teams** who want an honest cost-reduction layer, not another observability dashboard.
+- **Solo developers, side-project builders, and hobbyists** with personal Anthropic / OpenAI / Mistral API accounts — the 60M-tokens-per-month free tier covers most personal projects entirely. No card up front, no per-token fee, no future bill surprise.
 
-**Not for:** hobby projects under $500/month bills — the free tier already covers you. Air-gapped on-prem deployments — we're hosted only.
+**Not for:**
+- **Consumer subscriptions** (Claude Pro, ChatGPT Plus, Gemini Advanced) — Tessera proxies API requests; subscriptions don't expose an API and aren't billed per token. Tessera cannot route subscription traffic.
+- **Air-gapped on-prem deployments** — we're a hosted proxy only.
 
 ---
 
@@ -234,9 +237,25 @@ The [examples/](./examples/) directory has runnable snippets:
 - [`langchain-wrap.py`](./examples/langchain-wrap.py) — LangChain via transparent SDK patching (works because `activate()` patches the underlying OpenAI / Anthropic / etc. clients that LangChain uses internally)
 - [`direct-provider.py`](./examples/direct-provider.py) — DeepSeek, Together, Fireworks, etc. via OpenAI-compatible URL
 
-Compatible with LangChain, LlamaIndex, CrewAI, AutoGen, Mastra, Pydantic AI, and Vercel AI SDK — they all call the underlying provider SDK constructors that `activate()` patches. LangChain and the Vercel AI SDK are verified by examples in this repo; others are unverified but expected to work — file an issue if you hit a gap.
+Compatible with LangChain, LlamaIndex, CrewAI, AutoGen, Mastra, Pydantic AI, and Vercel AI SDK — they all call the underlying provider SDK constructors that `activate()` patches.
 
-> **LangChain users — there is a dedicated package.** [`tessera-langchain`](https://github.com/tessera-llm/tessera-langchain) (`pip install tessera-langchain` / `npm install @tessera-llm/langchain`) is a LangChain-native integration that wires into `ChatOpenAI` / `ChatAnthropic` / `ChatMistralAI` / `ChatGroq` / `ChatCohere` constructors with one line of config. Both `tessera-sdk` and `tessera-langchain` use the same proxy at `api.tesseraai.io` and the same `tsr_…` API key — they are safe to install side by side. Pick whichever fits your codebase; if you are on LangChain, `tessera-langchain` is the cleaner ergonomic fit.
+---
+
+## Framework integrations — dedicated packages
+
+If you're already building on a framework, the dedicated integration package is the cleaner ergonomic fit than the transparent SDK patch:
+
+| Framework | Package | Install |
+|---|---|---|
+| **LangChain** (Python + Node) | [`tessera-langchain`](https://github.com/tessera-llm/tessera-langchain) | `pip install tessera-langchain` · `npm install @tessera-llm/langchain` |
+| **Vercel AI SDK** (Node) | [`@tessera-llm/vercel-ai`](https://github.com/tessera-llm/tessera-vercel-ai) | `npm install @tessera-llm/vercel-ai` |
+| **LlamaIndex** (Python + Node) | [`tessera-llamaindex`](https://github.com/tessera-llm/tessera-llamaindex) | `pip install tessera-llamaindex` · `npm install @tessera-llm/llamaindex` |
+| **Mastra** (Node) | [`@tessera-llm/mastra`](https://www.npmjs.com/package/@tessera-llm/mastra) | `npm install @tessera-llm/mastra` |
+| **Pydantic AI** (Python) | [`tessera-pydantic-ai`](https://pypi.org/project/tessera-pydantic-ai/) | `pip install tessera-pydantic-ai` |
+| **CrewAI** (Python) | [`tessera-crewai`](https://pypi.org/project/tessera-crewai/) | `pip install tessera-crewai` |
+| **AutoGen 0.4+** (Python) | [`tessera-autogen`](https://pypi.org/project/tessera-autogen/) | `pip install tessera-autogen` |
+
+All integrations use the same proxy at `api.tesseraai.io` and the same `tsr_…` API key — install whichever matches your codebase. `tessera-sdk` (this package) and the framework-specific integrations are safe to use side by side.
 
 ---
 
