@@ -11,7 +11,7 @@ We aim to acknowledge reports within two business days and to ship a fix or a pu
 In scope:
 
 - The published Python package `tessera-llm-proxy` on PyPI.
-- The published npm package `@tessera-llm/sdk`.
+- The published npm package `@tessera-llm/tessera-sdk`.
 - The runnable examples in `examples/`.
 - The wire format the SDK uses to talk to the Tessera proxy at `api.tesseraai.io` (header names, redirect rules, auth surface).
 
@@ -25,7 +25,7 @@ Out of scope:
 
 A clean reproduction is the fastest path to a fix. Please include:
 
-1. SDK language and version (`pip show tessera-llm-proxy` / `npm list @tessera-llm/sdk`).
+1. SDK language and version (`pip show tessera-llm-proxy` / `npm list @tessera-llm/tessera-sdk`).
 2. Minimal repro code or a curl command.
 3. Expected behaviour vs. observed behaviour.
 4. Any logs, stack traces, or HTTP responses.

@@ -16,7 +16,7 @@ body:
       description: Which package?
       options:
         - Python (`tessera-llm-proxy`)
-        - Node / TypeScript (`@tessera-llm/sdk`)
+        - Node / TypeScript (`@tessera-llm/tessera-sdk`)
         - Both
     validations:
       required: true
@@ -25,7 +25,7 @@ body:
     id: sdk-version
     attributes:
       label: SDK version
-      description: Output of `pip show tessera-llm-proxy` or `npm list @tessera-llm/sdk`.
+      description: Output of `pip show tessera-llm-proxy` or `npm list @tessera-llm/tessera-sdk`.
       placeholder: e.g. 0.1.0
     validations:
       required: true

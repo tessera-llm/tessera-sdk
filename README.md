@@ -5,12 +5,12 @@ Tessera is an LLM gateway that sits in your request path. It auto-routes to chea
 [![PyPI](https://img.shields.io/pypi/v/tessera-llm-proxy.svg?label=PyPI)](https://pypi.org/project/tessera-llm-proxy/)
 [![PyPI downloads](https://img.shields.io/pypi/dm/tessera-llm-proxy.svg?label=pip%20installs)](https://pypi.org/project/tessera-llm-proxy/)
 [![Python](https://img.shields.io/pypi/pyversions/tessera-llm-proxy.svg)](https://pypi.org/project/tessera-llm-proxy/)
-[![npm](https://img.shields.io/npm/v/@tessera-llm/sdk.svg?label=npm)](https://www.npmjs.com/package/@tessera-llm/sdk)
-[![npm downloads](https://img.shields.io/npm/dm/@tessera-llm/sdk.svg?label=npm%20installs)](https://www.npmjs.com/package/@tessera-llm/sdk)
-[![Node](https://img.shields.io/node/v/@tessera-llm/sdk.svg)](https://www.npmjs.com/package/@tessera-llm/sdk)
-[![CI](https://github.com/tessera-llm/sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/tessera-llm/sdk/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@tessera-llm/tessera-sdk.svg?label=npm)](https://www.npmjs.com/package/@tessera-llm/tessera-sdk)
+[![npm downloads](https://img.shields.io/npm/dm/@tessera-llm/tessera-sdk.svg?label=npm%20installs)](https://www.npmjs.com/package/@tessera-llm/tessera-sdk)
+[![Node](https://img.shields.io/node/v/@tessera-llm/tessera-sdk.svg)](https://www.npmjs.com/package/@tessera-llm/tessera-sdk)
+[![CI](https://github.com/tessera-llm/tessera-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/tessera-llm/tessera-sdk/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/tessera-llm/sdk?style=flat&color=18181b&labelColor=fafafa)](https://github.com/tessera-llm/sdk)
+[![GitHub stars](https://img.shields.io/github/stars/tessera-llm/tessera-sdk?style=flat&color=18181b&labelColor=fafafa)](https://github.com/tessera-llm/tessera-sdk)
 
 **Free Dev tier: 60M tokens / month, no card required.** Get a key at [tesseraai.io/dev](https://tesseraai.io/dev).
 
@@ -56,7 +56,7 @@ Tessera is an LLM gateway that sits in your request path. It auto-routes to chea
 | Language | Install |
 |---|---|
 | Python | `pip install "tessera-llm-proxy>=0.1.0,<0.2"` |
-| Node / TypeScript | `npm install @tessera-llm/sdk@^0.1.0` |
+| Node / TypeScript | `npm install @tessera-llm/tessera-sdk@^0.1.0` |
 
 Pre-1.0 semver: minor releases may include breaking changes. Pin a floor + ceiling in production.
 
@@ -77,7 +77,7 @@ tessera.activate("tk_your_tessera_key")
 ### Node / TypeScript
 
 ```ts
-import { activate } from "@tessera-llm/sdk";
+import { activate } from "@tessera-llm/tessera-sdk";
 activate("tk_your_tessera_key");
 
 // Same shape: new OpenAI(), new Anthropic(), new Mistral(), etc. — all
@@ -160,7 +160,7 @@ You can also flip the global kill-switch in `/portal/billing` at any time — tr
 ## How it works (60 seconds)
 
 1. **Get a free API key** — email + ToS at [ledger.tesseraai.io/signup-dev](https://ledger.tesseraai.io/signup-dev). You receive a `tk_` key (shown once) plus a magic-link for dashboard access (we use passwordless email auth — no SSO yet, on the roadmap).
-2. **Install the SDK** — `pip install tessera-llm-proxy` or `npm install @tessera-llm/sdk`.
+2. **Install the SDK** — `pip install tessera-llm-proxy` or `npm install @tessera-llm/tessera-sdk`.
 3. **One line** — `tessera.activate("tk_…")` (Python) or `activate("tk_…")` (Node).
 4. **Watch the counter** — tokens used + savings number tick live on [ledger.tesseraai.io/portal](https://ledger.tesseraai.io/portal).
 
@@ -310,7 +310,7 @@ Per workload, in `/portal/settings`: toggle any mechanic on / off. Or set the re
 - **Architecture and mechanic reference:** [tesseraai.io/how-it-works](https://tesseraai.io/how-it-works)
 - **Security + Quality SLA:** [tesseraai.io/security](https://tesseraai.io/security)
 - **Engineering blog:** [tesseraai.io/blog](https://tesseraai.io/blog)
-- **Discussions:** [github.com/tessera-llm/sdk/discussions](https://github.com/tessera-llm/sdk/discussions)
+- **Discussions:** [github.com/tessera-llm/tessera-sdk/discussions](https://github.com/tessera-llm/tessera-sdk/discussions)
 
 ---
 
@@ -318,7 +318,7 @@ Per workload, in `/portal/settings`: toggle any mechanic on / off. Or set the re
 
 PRs welcome for new examples, framework adapters, type-stub improvements, and bug fixes. See [CONTRIBUTING.md](./CONTRIBUTING.md) and the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
-- **Bug reports:** [github.com/tessera-llm/sdk/issues](https://github.com/tessera-llm/sdk/issues)
+- **Bug reports:** [github.com/tessera-llm/tessera-sdk/issues](https://github.com/tessera-llm/tessera-sdk/issues)
 - **Security:** [security@tesseraai.io](mailto:security@tesseraai.io) — see [SECURITY.md](./SECURITY.md)
 
 ---

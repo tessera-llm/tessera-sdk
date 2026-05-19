@@ -2,7 +2,7 @@
  * openai-wrap.ts — Tessera SDK quick start with the OpenAI Node client.
  *
  * Prerequisites:
- *   npm install @tessera-llm/sdk openai
+ *   npm install @tessera-llm/tessera-sdk openai
  *   export TESSERA_KEY=tk_...           # from https://ledger.tesseraai.io/signup-dev
  *   export OPENAI_API_KEY=sk-...        # your existing OpenAI key
  *
@@ -16,7 +16,7 @@
  *   4. Same prompt within 7 days returns from cache (auto-cache mechanic)
  */
 
-import { activate } from '@tessera-llm/sdk';
+import { activate } from '@tessera-llm/tessera-sdk';
 import OpenAI from 'openai';
 
 async function main() {

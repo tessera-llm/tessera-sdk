@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Tessera SDK (Python + Node) are documented here. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Pre-1.0 minor versions (`0.x.0`) may include breaking changes — pin a floor + ceiling in production (`tessera-llm-proxy>=0.1.0,<0.2`, `@tessera-llm/sdk@^0.1.0`).
+All notable changes to the Tessera SDK (Python + Node) are documented here. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Pre-1.0 minor versions (`0.x.0`) may include breaking changes — pin a floor + ceiling in production (`tessera-llm-proxy>=0.1.0,<0.2`, `@tessera-llm/tessera-sdk@^0.1.0`).
 
 ## [Unreleased]
 
@@ -36,7 +36,7 @@ _Nothing yet._
 
 ### Added
 
-- Initial public release of the Tessera SDK (`tessera-llm-proxy` on PyPI, `@tessera-llm/sdk` on npm).
+- Initial public release of the Tessera SDK (`tessera-llm-proxy` on PyPI, `@tessera-llm/tessera-sdk` on npm).
 - One-line `tessera.activate()` (Python) / `activate()` (Node/TS) patches OpenAI, Anthropic, Mistral, Groq, and Cohere client constructors transparently in-process — point the underlying SDK at `api.tesseraai.io` and inject the Tessera key without rewriting your call sites.
 - Manual wiring primitives `tessera.url(provider)` / `url(provider)` + `tessera.headers()` / `headers()` for providers without an official SDK (DeepSeek, xAI, Together, Fireworks, OpenRouter, Perplexity, Cerebras, Google Gemini AI Studio).
 - `deactivate()` for test teardown; `status()` and `isActive()` / `is_active()` for health-check + logging integration.
@@ -47,6 +47,6 @@ _Nothing yet._
 - README with worked pricing example, optimisation reference, Quality SLA spec, supported-provider matrix, FAQ.
 - Per-package READMEs in `python/` and `node/`.
 
-[Unreleased]: https://github.com/tessera-llm/sdk/compare/python-v0.1.1...main
-[0.1.1]: https://github.com/tessera-llm/sdk/compare/python-v0.1.0...python-v0.1.1
-[0.1.0]: https://github.com/tessera-llm/sdk/releases/tag/python-v0.1.0
+[Unreleased]: https://github.com/tessera-llm/tessera-sdk/compare/python-v0.1.1...main
+[0.1.1]: https://github.com/tessera-llm/tessera-sdk/compare/python-v0.1.0...python-v0.1.1
+[0.1.0]: https://github.com/tessera-llm/tessera-sdk/releases/tag/python-v0.1.0

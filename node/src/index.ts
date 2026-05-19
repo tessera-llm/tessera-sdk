@@ -7,7 +7,7 @@
  *
  * Typical use:
  *
- *   import { activate } from "@tessera-llm/sdk";
+ *   import { activate } from "@tessera-llm/tessera-sdk";
  *   activate("tk_your_tessera_key");
  *
  * After `activate()`, any subsequent `new OpenAI()` / `new Anthropic()` /

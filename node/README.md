@@ -1,7 +1,7 @@
-# @tessera-llm/sdk
+# @tessera-llm/tessera-sdk
 
-[![npm version](https://img.shields.io/npm/v/@tessera-llm/sdk.svg)](https://www.npmjs.com/package/@tessera-llm/sdk)
-[![Node](https://img.shields.io/node/v/@tessera-llm/sdk.svg)](https://www.npmjs.com/package/@tessera-llm/sdk)
+[![npm version](https://img.shields.io/npm/v/@tessera-llm/tessera-sdk.svg)](https://www.npmjs.com/package/@tessera-llm/tessera-sdk)
+[![Node](https://img.shields.io/node/v/@tessera-llm/tessera-sdk.svg)](https://www.npmjs.com/package/@tessera-llm/tessera-sdk)
 
 **Drop-in cost optimization for LLM applications.** One line of code patches your existing OpenAI / Anthropic / Mistral / DeepSeek / Groq / Together / Fireworks / OpenRouter / Perplexity / Cerebras / xAI client to route through Tessera's measurement + auto-optimize proxy. You keep your provider account and keys; we route + cache + compress and measure savings on every request.
 
@@ -19,9 +19,9 @@ After signup you get:
 ## Install
 
 ```bash
-npm install @tessera-llm/sdk
-# or: pnpm add @tessera-llm/sdk
-# or: yarn add @tessera-llm/sdk
+npm install @tessera-llm/tessera-sdk
+# or: pnpm add @tessera-llm/tessera-sdk
+# or: yarn add @tessera-llm/tessera-sdk
 ```
 
 ## One-line setup
@@ -29,7 +29,7 @@ npm install @tessera-llm/sdk
 Drop this at the top of your application's entry point (`server.ts`, `app.ts`, `index.ts`, wherever your app boots — before any LLM SDK client is constructed):
 
 ```ts
-import { activate } from "@tessera-llm/sdk";
+import { activate } from "@tessera-llm/tessera-sdk";
 
 activate("tk_your_tessera_key");
 ```
@@ -45,7 +45,7 @@ export TESSERA_KEY=tk_your_tessera_key
 ```
 
 ```ts
-import { activate } from "@tessera-llm/sdk";
+import { activate } from "@tessera-llm/tessera-sdk";
 activate(); // reads TESSERA_KEY from process.env
 ```
 
@@ -69,7 +69,7 @@ If you call providers that aren't covered by an official Node SDK (DeepSeek, Tog
 
 ```ts
 import OpenAI from "openai";
-import { url, headers } from "@tessera-llm/sdk";
+import { url, headers } from "@tessera-llm/tessera-sdk";
 
 // DeepSeek via Tessera
 const client = new OpenAI({
@@ -86,7 +86,7 @@ const client = new OpenAI({
 ## Verification
 
 ```ts
-import { activate, isActive, status } from "@tessera-llm/sdk";
+import { activate, isActive, status } from "@tessera-llm/tessera-sdk";
 
 activate("tk_...");
 
@@ -100,7 +100,7 @@ console.log(status());
 To restore the original SDK constructors (e.g. in test teardown):
 
 ```ts
-import { deactivate } from "@tessera-llm/sdk";
+import { deactivate } from "@tessera-llm/tessera-sdk";
 deactivate();
 ```
 

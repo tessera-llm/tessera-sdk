@@ -5,10 +5,10 @@ Thanks for your interest. The Tessera SDK is Apache-2.0 licensed and PRs are wel
 ## Reporting bugs
 
 Open an issue at
-[github.com/tessera-llm/sdk/issues](https://github.com/tessera-llm/sdk/issues)
+[github.com/tessera-llm/tessera-sdk/issues](https://github.com/tessera-llm/tessera-sdk/issues)
 with:
 
-- SDK version (`pip show tessera-llm-proxy` or `npm list @tessera-llm/sdk`)
+- SDK version (`pip show tessera-llm-proxy` or `npm list @tessera-llm/tessera-sdk`)
 - Language runtime version (Python 3.x, Node version)
 - Minimum reproduction snippet
 - Expected vs. actual behaviour
