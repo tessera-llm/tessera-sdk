@@ -231,10 +231,12 @@ The [examples/](./examples/) directory has runnable snippets:
 - [`openai-wrap.py`](./examples/openai-wrap.py) — OpenAI client (Python)
 - [`openai-wrap.ts`](./examples/openai-wrap.ts) — OpenAI client (Node)
 - [`anthropic-wrap.py`](./examples/anthropic-wrap.py) — Anthropic client
-- [`langchain-wrap.py`](./examples/langchain-wrap.py) — LangChain (no adapter needed — activation patches the underlying SDK)
+- [`langchain-wrap.py`](./examples/langchain-wrap.py) — LangChain via transparent SDK patching (works because `activate()` patches the underlying OpenAI / Anthropic / etc. clients that LangChain uses internally)
 - [`direct-provider.py`](./examples/direct-provider.py) — DeepSeek, Together, Fireworks, etc. via OpenAI-compatible URL
 
 Compatible with LangChain, LlamaIndex, CrewAI, AutoGen, Mastra, Pydantic AI, and Vercel AI SDK — they all call the underlying provider SDK constructors that `activate()` patches. LangChain and the Vercel AI SDK are verified by examples in this repo; others are unverified but expected to work — file an issue if you hit a gap.
+
+> **LangChain users — there is a dedicated package.** [`tessera-langchain`](https://github.com/tessera-llm/tessera-langchain) (`pip install tessera-langchain` / `npm install @tessera-llm/langchain`) is a LangChain-native integration that wires into `ChatOpenAI` / `ChatAnthropic` / `ChatMistralAI` / `ChatGroq` / `ChatCohere` constructors with one line of config. Both `tessera-sdk` and `tessera-langchain` use the same proxy at `api.tesseraai.io` and the same `tsr_…` API key — they are safe to install side by side. Pick whichever fits your codebase; if you are on LangChain, `tessera-langchain` is the cleaner ergonomic fit.
 
 ---
 
