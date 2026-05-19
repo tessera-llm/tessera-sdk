@@ -125,8 +125,8 @@ Two tiers:
 | Rate limit | 30 req / min | 60 req / min |
 | Performance fee | $0 | **20%** of measured savings · $0 if none |
 | Balance management | — | Stripe top-ups ($100 min) |
-| Monthly Reading PDF | — | Audit-grade ledger |
-| Anomaly response | Observe only | Tier 1 throttle + Tier 2 halt |
+| Audit ledger PDF | — | Full traceable spend report |
+| Anomaly response | Observe only | Auto-throttle + auto-halt ladder |
 | Team seats | — | Up to 5 |
 
 **Zero savings = zero fee.** Even on Production, if our optimization doesn't save you anything in a period, you pay nothing for that period.
