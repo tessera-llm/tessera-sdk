@@ -255,7 +255,7 @@ If you're already building on a framework, the dedicated integration package is 
 | **CrewAI** (Python) | [`tessera-crewai`](https://pypi.org/project/tessera-crewai/) | `pip install tessera-crewai` |
 | **AutoGen 0.4+** (Python) | [`tessera-autogen`](https://pypi.org/project/tessera-autogen/) | `pip install tessera-autogen` |
 
-All integrations use the same proxy at `api.tesseraai.io` and the same `tsr_…` API key — install whichever matches your codebase. `tessera-sdk` (this package) and the framework-specific integrations are safe to use side by side.
+All integrations use the same proxy at `api.tesseraai.io` and the same `tk_…` API key — install whichever matches your codebase. `tessera-sdk` (this package) and the framework-specific integrations are safe to use side by side.
 
 ---
 
