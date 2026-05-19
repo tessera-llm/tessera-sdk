@@ -23,7 +23,7 @@ afterEach(() => {
   delete process.env.TESSERA_KEY;
 });
 
-describe('@tessera-llm/sdk — pure helpers', () => {
+describe('@tessera-llm/tessera-sdk — pure helpers', () => {
   it('exposes the canonical proxy base', () => {
     expect(DEFAULT_PROXY_BASE).toBe('https://api.tesseraai.io/v1');
   });
@@ -52,7 +52,7 @@ describe('@tessera-llm/sdk — pure helpers', () => {
   });
 });
 
-describe('@tessera-llm/sdk — activate/deactivate lifecycle', () => {
+describe('@tessera-llm/tessera-sdk — activate/deactivate lifecycle', () => {
   it('throws when no key provided either way', () => {
     expect(() => activate()).toThrow(/key not provided/);
   });

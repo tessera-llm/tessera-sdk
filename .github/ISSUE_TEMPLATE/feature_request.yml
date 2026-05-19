@@ -13,7 +13,7 @@ body:
       label: Surface
       options:
         - Python (`tessera-llm-proxy`)
-        - Node / TypeScript (`@tessera-llm/sdk`)
+        - Node / TypeScript (`@tessera-llm/tessera-sdk`)
         - Both
         - Examples folder
         - Documentation

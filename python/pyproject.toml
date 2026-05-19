@@ -62,9 +62,9 @@ dev = [
 [project.urls]
 Homepage = "https://tesseraai.io"
 Documentation = "https://tesseraai.io/dev"
-Repository = "https://github.com/tessera-llm/sdk"
-Issues = "https://github.com/tessera-llm/sdk/issues"
-Changelog = "https://github.com/tessera-llm/sdk/blob/main/CHANGELOG.md"
+Repository = "https://github.com/tessera-llm/tessera-sdk"
+Issues = "https://github.com/tessera-llm/tessera-sdk/issues"
+Changelog = "https://github.com/tessera-llm/tessera-sdk/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
 packages = ["tessera"]
