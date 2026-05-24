@@ -1,9 +1,18 @@
-# Changelog
+﻿# Changelog
 
 All notable changes to the Tessera SDK (Python + Node) are documented here. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Pre-1.0 minor versions (`0.x.0`) may include breaking changes — pin a floor + ceiling in production (`tessera-llm-proxy>=0.1.0,<0.2`, `@tessera-llm/tessera-sdk@^0.1.0`).
 
 ## [Unreleased]
 
+## [0.1.2] -- 2026-05-25
+
+### Fixed
+- tk_ prefix sweep across docs + test fixtures (post-0.1.1 follow-up).
+- Free Dev -> Free Sandbox terminology consistency across READMEs.
+
+### Changed
+- Companion-cross-link block refreshed to include 4 new sibling repos
+  (tessera-mastra, tessera-pydantic-ai, tessera-crewai, tessera-autogen).
 _Nothing yet._
 
 ## [0.1.1] — 2026-05-19
