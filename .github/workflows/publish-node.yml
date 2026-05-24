@@ -1,22 +1,19 @@
-name: Publish Node (@tessera-llm/tessera-sdk) to npm
-
-# Fires on a tag matching `node-v*` (e.g. node-v0.1.0). Builds the dist/
-# bundles in node/ and publishes to npm via npm publish using the
-# NPM_TOKEN repo secret. Workflow tagged 2026-05-23.
+name: Publish Node to npm (sigstore-attested)
 
 on:
   push:
     tags:
-      - 'node-v*'
+      - "v*"
   workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write   # OIDC token for sigstore attestation
 
 jobs:
   publish:
-    name: Build + publish @tessera-llm/tessera-sdk
+    name: Build + publish (sigstore-signed)
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: node
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,11 +21,11 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm install
 
       - name: Typecheck
         run: npm run typecheck
@@ -39,7 +36,21 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Publish to npm
+      - name: Check NPM_TOKEN secret
+        id: check-secret
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "::warning::NPM_TOKEN secret not set on this repo. Set via: gh secret set NPM_TOKEN --repo tessera-llm/<repo>"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to npm (sigstore-attested)
+        if: steps.check-secret.outputs.skip == "false"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public --provenance
+
