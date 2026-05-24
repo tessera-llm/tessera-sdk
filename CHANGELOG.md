@@ -1,4 +1,4 @@
-﻿# Changelog
+# Changelog
 
 All notable changes to the Tessera SDK (Python + Node) are documented here. This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Pre-1.0 minor versions (`0.x.0`) may include breaking changes — pin a floor + ceiling in production (`tessera-llm-proxy>=0.1.0,<0.2`, `@tessera-llm/tessera-sdk@^0.1.0`).
 
