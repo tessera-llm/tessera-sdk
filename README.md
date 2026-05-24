@@ -12,7 +12,7 @@ Tessera is an LLM gateway that sits in your request path. It auto-routes to chea
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/tessera-llm/tessera-sdk?style=flat&color=18181b&labelColor=fafafa)](https://github.com/tessera-llm/tessera-sdk)
 
-**Free Dev tier: 60M tokens / month, no card required.** Get a key at [tesseraai.io/dev](https://tesseraai.io/dev).
+**Free Sandbox tier: 60M tokens / month, no card required.** Get a key at [tesseraai.io/dev](https://tesseraai.io/dev).
 
 <details>
 <summary>Table of contents</summary>
@@ -131,7 +131,7 @@ Quality canary mean-score held at 0.96 across all stages (floor 0.95) — if it 
 
 ## What Tessera does to each request
 
-Eight mechanics shipped, two more in design (`m4` cost-attribution batching, `m9` multi-region failover — see the [roadmap](https://tesseraai.io/how-it-works)). Each mechanic is per-workload opt-in. Stage 3 mutex caps content-mutating mechanics at one per request to bound quality risk.
+Ten mechanics shipped (`m1`-`m3`, `m5`-`m11`), one more in design (`m12` PII / jailbreak / toxicity guardrails — see the [roadmap](https://tesseraai.io/how-it-works)). `m4` is intentionally skipped (no mechanic in that slot). Each mechanic is per-workload opt-in. Stage 3 mutex caps content-mutating mechanics at one per request to bound quality risk.
 
 Audit-log chips in `/portal/audit` use the short codes in `<sub>` below — that's the bridge if you want to map a specific request back to which mechanic fired.
 
@@ -144,7 +144,9 @@ Audit-log chips in `/portal/audit` use the short codes in `<sub>` below — that
 | **Prompt cache** <sub>(m6)</sub> | Native provider prompt-cache headers — OpenAI cached-input rate (50% off), Anthropic prompt caching (90% off cache reads) | 50–90% on cached prefixes depending on provider |
 | **Context pruning** <sub>(m7)</sub> | Conversation + RAG-block aware prune when message count > 12 or body > 32 KB | 10–40% prompt token reduction |
 | **Structured output** <sub>(m8)</sub> | Inject `response_format=json_schema` (strict mode) or `json_object` (auto mode) when an `expected_schema` is set | 10–35% output cost cut on JSON workloads |
+| **Output ceiling** <sub>(m9)</sub> | Cap `max_tokens` from rolling p90 truncation rate per workload — eliminates wasted completion tokens on responses that always finish short | 5–15% on output-bound workloads |
 | **Auto-batch** <sub>(m10)</sub> | Route async-tolerant calls to provider Batch APIs (OpenAI Batch, Anthropic Message Batches — both 50% off) | 50% on batch-eligible traffic |
+| **Cross-provider failover** <sub>(m11)</sub> | Opt-in passive failover to OpenRouter when primary upstream returns 5xx / connection error / timeout. Same eval gate; gated on workload `compliance_tier` (regulated workloads skip) | Reliability, not cost — quality preservation estimate per pair |
 
 ---
 
@@ -173,7 +175,7 @@ Provider keys (your OpenAI `sk-…`, Anthropic `sk-ant-…`, etc.) stay in your 
 
 ## Pricing
 
-| | **Free Dev** | **Production** |
+| | **Free Sandbox** | **Production** |
 |---|---|---|
 | Token throughput | 60M / month | Unlimited |
 | Rate limit | 30 req / min | 60 req / min |
@@ -249,7 +251,7 @@ If you're already building on a framework, the dedicated integration package is 
 |---|---|---|
 | **LangChain** (Python + Node) | [`tessera-langchain`](https://github.com/tessera-llm/tessera-langchain) | `pip install tessera-langchain` · `npm install @tessera-llm/langchain` |
 | **Vercel AI SDK** (Node) | [`@tessera-llm/vercel-ai`](https://github.com/tessera-llm/tessera-vercel-ai) | `npm install @tessera-llm/vercel-ai` |
-| **LlamaIndex** (Python + Node) | [`tessera-llamaindex`](https://github.com/tessera-llm/tessera-llamaindex) | `pip install tessera-llamaindex` · `npm install @tessera-llm/llamaindex` |
+| **LlamaIndex** (Python) | [`tessera-llamaindex`](https://github.com/tessera-llm/tessera-llamaindex) | `pip install tessera-llamaindex` |
 | **Mastra** (Node) | [`@tessera-llm/mastra`](https://www.npmjs.com/package/@tessera-llm/mastra) | `npm install @tessera-llm/mastra` |
 | **Pydantic AI** (Python) | [`tessera-pydantic-ai`](https://pypi.org/project/tessera-pydantic-ai/) | `pip install tessera-pydantic-ai` |
 | **CrewAI** (Python) | [`tessera-crewai`](https://pypi.org/project/tessera-crewai/) | `pip install tessera-crewai` |
@@ -284,7 +286,7 @@ We don't inspect prompt content. The proxy forwards your request body upstream b
 
 ### What happens to my OpenAI / Anthropic rate limits?
 
-Your provider rate limits are unchanged. Tessera forwards your provider key upstream, so you stay on whatever tier your account holds. Our own rate limits (30 req/min on Free Dev, 60 req/min on Production) apply on top — they exist to prevent abuse of the free tier and are lifted on request for Production customers with confirmed traffic spikes. Email [founder@tesseraai.io](mailto:founder@tesseraai.io).
+Your provider rate limits are unchanged. Tessera forwards your provider key upstream, so you stay on whatever tier your account holds. Our own rate limits (30 req/min on Free Sandbox, 60 req/min on Production) apply on top — they exist to prevent abuse of the free tier and are lifted on request for Production customers with confirmed traffic spikes. Email [founder@tesseraai.io](mailto:founder@tesseraai.io).
 
 ### What happens if Tessera is down?
 
@@ -352,8 +354,15 @@ Apache-2.0. See [LICENSE](./LICENSE).
 
 ## About Tessera
 
-Tessera is the Optimize Layer for LLM cost. A thin proxy in your request path that measures savings honestly and only charges when we actually saved you money. Operated by Fintechagency OÜ (Estonia, registry code 16638667).
+Tessera is the **substrate layer** for **LLM cost optimization**, also called the **Optimize Layer** in our product surface. A thin proxy that sits in your application's **request-path**, applies a conservative cascade of optimization mechanics, and measures every saved dollar against an **audit-immutable** baseline. We bill **20% of verified savings**, prepaid. Zero savings = zero fee. No per-token gateway fee, no subscription, no minimum monthly commitment; the category we operate in is "**success-fee LLM optimizer**," distinct from per-token **AI gateways** and observability dashboards.
+
+Where observability tools tell you what you spent and AI gateways re-shape the request without measuring the cost delta, Tessera is the layer that does both, and only takes a cut when the measured savings are positive. The **verified-savings ledger** at [`ledger.tesseraai.io`](https://ledger.tesseraai.io) shows every original-vs-actual cost pair, snapshot-pinned to a `pricing_catalog` version captured at request time. Mid-contract price changes don't retroactively alter past savings. This is the **FinOps**-friendly model for AI inference: every line of the bill traces to a code-enforced rule.
+
+Operated by Fintechagency OÜ (Estonia, registry code 16638667).
 
 - Developer entry: [tesseraai.io/dev](https://tesseraai.io/dev)
+- Mechanic reference: [tesseraai.io/how-it-works](https://tesseraai.io/how-it-works)
 - Dashboard: [ledger.tesseraai.io](https://ledger.tesseraai.io)
+- Security posture: [tesseraai.io/security](https://tesseraai.io/security)
+- Engineering blog: [tesseraai.io/blog](https://tesseraai.io/blog)
 - Landing: [tesseraai.io](https://tesseraai.io)
