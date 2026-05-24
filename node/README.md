@@ -5,7 +5,7 @@
 
 **Drop-in cost optimization for LLM applications.** One line of code patches your existing OpenAI / Anthropic / Mistral / DeepSeek / Groq / Together / Fireworks / OpenRouter / Perplexity / Cerebras / xAI client to route through Tessera's measurement + auto-optimize proxy. You keep your provider account and keys; we route + cache + compress and measure savings on every request.
 
-> Free Dev tier: **60M tokens / month · no card required · no fee until you upgrade.** Get your free key at [tesseraai.io/dev](https://tesseraai.io/dev).
+> Free Sandbox tier: **60M tokens / month · no card required · no fee until you upgrade.** Get your free key at [tesseraai.io/dev](https://tesseraai.io/dev).
 
 ## Get a free API key
 
@@ -119,7 +119,7 @@ activate("tk_...", {
 
 Two tiers:
 
-| | **Free Dev** | **Production** |
+| | **Free Sandbox** | **Production** |
 |---|---|---|
 | Token throughput | 60M / month | Unlimited |
 | Rate limit | 30 req / min | 60 req / min |

@@ -21,7 +21,7 @@ _Nothing yet._
 ### Changed
 
 - README polish — clearer hero ("LLM gateway" in the opening, "substrate proxy" reserved for the comparison section), worked-example math anchored on realistic gpt-4o list rates at 5B tokens / month, "you keep 80%" framing on pricing, four new pre-buy FAQ entries (rate limits, PII, proxy uptime, self-host), comparison table no longer names individual observability vendors, and a new Type safety section.
-- Free Dev rate limit raised from 10 → 30 req/min on both the worker and the documented copy. Generous enough that hobby + side-projects almost never hit it; still clearly below Production's 60 rpm.
+- Free Sandbox rate limit raised from 10 → 30 req/min on both the worker and the documented copy. Generous enough that hobby + side-projects almost never hit it; still clearly below Production's 60 rpm.
 - M-code mechanic identifiers downgraded to `<sub>(m1)</sub>` sub-identifiers in the mechanic table and stripped from the SLA narrative prose. The `/portal/audit` chip strip still uses the same lowercase codes for power users matching audit logs.
 - Worker now exposes `GET /health` returning `{status, worker, environment, ts}` JSON alongside the existing `/healthz` plain-text liveness probe. Pingdom, Better Uptime, Cloudflare Health Checks all expect the `/health` convention.
 - `LICENSE` replaced with the full Apache-2.0 text (was a 17-line summary) so GitHub correctly detects the license as `apache-2.0` instead of "Other".
