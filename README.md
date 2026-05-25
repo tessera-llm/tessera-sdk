@@ -170,7 +170,7 @@ Audit-log chips in `/portal/audit` use the short codes in `<sub>` below — that
 
 ## How it works (60 seconds)
 
-1. **Get a free API key** — email + ToS at [ledger.tesseraai.io/signup-dev](https://ledger.tesseraai.io/signup-dev). You receive a `tk_` key (shown once) plus a magic-link for dashboard access (we use passwordless email auth — no SSO yet, on the roadmap).
+1. **Get a free API key** — email + ToS at [tesseraai.io/dev](https://tesseraai.io/dev). You receive a `tk_` key (shown once) plus a magic-link for dashboard access (we use passwordless email auth — no SSO yet, on the roadmap).
 2. **Install the SDK** — `pip install tessera-llm-proxy` or `npm install @tessera-llm/tessera-sdk`.
 3. **One line** — `tessera.activate("tk_…")` (Python) or `activate("tk_…")` (Node).
 4. **Watch the counter** — tokens used + savings number tick live on [ledger.tesseraai.io/portal](https://ledger.tesseraai.io/portal).

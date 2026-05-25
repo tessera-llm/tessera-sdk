@@ -9,7 +9,7 @@
 
 ## Get a free API key
 
-→ **[Get free key](https://ledger.tesseraai.io/signup-dev)** (email + ToS, 30 seconds, no card)
+→ **[Get free key](https://tesseraai.io/dev)** (email + ToS, 30 seconds, no card)
 
 After signup you get:
 - Your `tk_` API key (shown once)
