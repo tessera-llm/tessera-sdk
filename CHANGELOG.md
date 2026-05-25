@@ -4,21 +4,19 @@ All notable changes to the Tessera SDK (Python + Node) are documented here. This
 
 ## [Unreleased]
 
-## [0.1.3] -- 2026-05-25
+## [0.1.3] — 2026-05-25
 
 ### Fixed
-- Broken `Get free API key` CTA in README + node/python sub-READMEs + examples that linked to `ledger.tesseraai.io/signup-dev` (returns 404 on dashboard subdomain). Canonical signup URL is `tesseraai.io/dev`. Founder caught customer-facing bug 2026-05-25 EOD.
+- `Get free API key` CTA across README, sub-READMEs (Python + Node), and example files now points to the canonical signup URL `tesseraai.io/dev`. Previous link target on the dashboard subdomain returned 404.
 
-## [0.1.2] -- 2026-05-25
+## [0.1.2] — 2026-05-25
 
 ### Fixed
-- tk_ prefix sweep across docs + test fixtures (post-0.1.1 follow-up).
-- Free Dev -> Free Sandbox terminology consistency across READMEs.
+- Consolidated API key prefix to `tk_` across documentation and test fixtures.
+- Aligned free-tier terminology on `Free Sandbox` across all READMEs.
 
 ### Changed
-- Companion-cross-link block refreshed to include 4 new sibling repos
-  (tessera-mastra, tessera-pydantic-ai, tessera-crewai, tessera-autogen).
-_Nothing yet._
+- Companion-package cross-link block now lists the full sibling roster (adds `tessera-mastra`, `tessera-pydantic-ai`, `tessera-crewai`, `tessera-autogen`).
 
 ## [0.1.1] — 2026-05-19
 
