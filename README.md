@@ -1,8 +1,6 @@
 # Tessera SDK — drop-in LLM cost-optimization proxy
 
-> **What this is:** an LLM inference API gateway that cuts your OpenAI / Anthropic / Mistral / Gemini bill. **What this is not:** a Web3 / crypto / internal-currency token-economy platform. The word "token" here means "LLM API token" (the billable unit of inference), not anything blockchain-shaped.
-
-Tessera is an LLM gateway that sits in your request path. It auto-routes to cheaper-equivalent models, caches repeated prompts, compresses context, and batches eligible calls. Every request is measured for cost delta against the model you originally asked for. **You keep 80% of the measured savings. We take 20%. Zero savings = zero fee.**
+Tessera is an LLM inference API gateway that sits in your request path. It auto-routes to cheaper-equivalent models, caches repeated prompts, compresses context, and batches eligible calls. Every request is measured for cost delta against the model you originally asked for. **You keep 80% of the measured savings. We take 20%. Zero savings = zero fee.**
 
 [![PyPI](https://img.shields.io/pypi/v/tessera-llm-proxy.svg?label=PyPI)](https://pypi.org/project/tessera-llm-proxy/)
 [![PyPI downloads](https://img.shields.io/pypi/dm/tessera-llm-proxy.svg?label=pip%20installs)](https://pypi.org/project/tessera-llm-proxy/)
