@@ -1,5 +1,7 @@
 # Tessera SDK — drop-in LLM cost-optimization proxy
 
+> **What this is:** an LLM inference API gateway that cuts your OpenAI / Anthropic / Mistral / Gemini bill. **What this is not:** a Web3 / crypto / internal-currency token-economy platform. The word "token" here means "LLM API token" (the billable unit of inference), not anything blockchain-shaped.
+
 Tessera is an LLM gateway that sits in your request path. It auto-routes to cheaper-equivalent models, caches repeated prompts, compresses context, and batches eligible calls. Every request is measured for cost delta against the model you originally asked for. **You keep 80% of the measured savings. We take 20%. Zero savings = zero fee.**
 
 [![PyPI](https://img.shields.io/pypi/v/tessera-llm-proxy.svg?label=PyPI)](https://pypi.org/project/tessera-llm-proxy/)
@@ -21,9 +23,9 @@ Tessera is an LLM gateway that sits in your request path. It auto-routes to chea
 - [Install](#install)
 - [One-line integration](#one-line-integration)
 - [30-second curl test](#30-second-curl-test)
+- [Quality SLA — auto-rollback + 10% credit](#quality-sla--auto-rollback--10-credit)
 - [Worked example — what 20% of savings looks like](#worked-example--what-20-of-savings-looks-like)
 - [What Tessera does to each request](#what-tessera-does-to-each-request)
-- [Quality SLA — auto-rollback + 10% credit](#quality-sla--auto-rollback--10-credit)
 - [How it works (60 seconds)](#how-it-works-60-seconds)
 - [Pricing](#pricing)
 - [Supported providers](#supported-providers)
@@ -106,9 +108,23 @@ curl https://api.tesseraai.io/v1/openai/chat/completions \
 
 ---
 
+## Quality SLA — auto-rollback + 10% credit
+
+**Quality is the primary contract; savings are the second-order effect. We address the quality story first because that's the only honest answer to "what happens when the cheaper model is dumber?"**
+
+A canary runs your workload at 10% sample rate against the baseline model, scored by a [promptfoo](https://promptfoo.dev) eval set you can define. If a workload's stack mean-score drops below 0.95 for 3 consecutive days with at least 30 samples per stack:
+
+1. The specific stack (e.g. `m1+m7`) auto-disables. `m1` alone and `m7` alone stay live — surgical rollback, not nuclear.
+2. A 10% credit on the last 3 days' fees attributable to that stack lands on your prepaid balance automatically.
+3. An `audit_event` records the breach + credit + reactivation timeline in your `/portal/audit` ledger.
+
+You can also flip the global kill-switch in `/portal/billing` at any time — traffic continues flowing as passthrough, just with no mutation. We treat quality regression as our problem, not yours: you get the SLA credit automatically, you don't have to file anything.
+
+---
+
 ## Worked example — what 20% of savings looks like
 
-**TL;DR — a customer-support agent burning $24,000/month on `gpt-4o` nets $11,680/month back after our 20% fee. Quality canary held at 0.96 across all four mechanics.**
+**TL;DR — a customer-support agent burning $24,000/month on `gpt-4o` nets $11,680/month back after our 20% fee. Quality canary held at 0.96 across all four mechanics (above the 0.95 floor documented in the section above).**
 
 A customer-support AI agent runs on `gpt-4o` with high prompt repetition (FAQ-style queries). 5B tokens / month at OpenAI list prices (70% input @ $2.50/M, 30% output @ $10/M) sits around **$24,000/month** at the start of the period.
 
@@ -126,6 +142,8 @@ After enabling Tessera (no code change beyond one-line activate):
 | **Customer net** | **$12,320** | **$11,680 saved / month** |
 
 Quality canary mean-score held at 0.96 across all stages (floor 0.95) — if it had dropped, the auto-route mechanic would have rolled back automatically and the customer received a 10% SLA credit on the affected days. **Numbers vary by workload shape.** Run your own workload free for 60M tokens to measure your actual delta.
+
+**Verify the savings math yourself.** Every billable line is traceable back to two immutable cost figures pinned to a multi-source pricing catalog snapshot captured at request time. Two engineers, three hours, can re-derive any month from raw inputs. Full procedure at [tesseraai.io/trust](https://tesseraai.io/trust).
 
 ---
 
@@ -147,18 +165,6 @@ Audit-log chips in `/portal/audit` use the short codes in `<sub>` below — that
 | **Output ceiling** <sub>(m9)</sub> | Cap `max_tokens` from rolling p90 truncation rate per workload — eliminates wasted completion tokens on responses that always finish short | 5–15% on output-bound workloads |
 | **Auto-batch** <sub>(m10)</sub> | Route async-tolerant calls to provider Batch APIs (OpenAI Batch, Anthropic Message Batches — both 50% off) | 50% on batch-eligible traffic |
 | **Cross-provider failover** <sub>(m11)</sub> | Opt-in passive failover to OpenRouter when primary upstream returns 5xx / connection error / timeout. Same eval gate; gated on workload `compliance_tier` (regulated workloads skip) | Reliability, not cost — quality preservation estimate per pair |
-
----
-
-## Quality SLA — auto-rollback + 10% credit
-
-A canary runs your workload at 10% sample rate against the baseline model, scored by a [promptfoo](https://promptfoo.dev) eval set you can define. If a workload's stack mean-score drops below 0.95 for 3 consecutive days with at least 30 samples per stack:
-
-1. The specific stack (e.g. `m1+m7`) auto-disables. `m1` alone and `m7` alone stay live — surgical rollback, not nuclear.
-2. A 10% credit on the last 3 days' fees attributable to that stack lands on your prepaid balance automatically.
-3. An `audit_event` records the breach + credit + reactivation timeline in your `/portal/audit` ledger.
-
-You can also flip the global kill-switch in `/portal/billing` at any time — traffic continues flowing as passthrough, just with no mutation.
 
 ---
 
