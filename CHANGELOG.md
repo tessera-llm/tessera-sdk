@@ -4,6 +4,11 @@ All notable changes to the Tessera SDK (Python + Node) are documented here. This
 
 ## [Unreleased]
 
+## [0.1.3] -- 2026-05-25
+
+### Fixed
+- Broken `Get free API key` CTA in README + node/python sub-READMEs + examples that linked to `ledger.tesseraai.io/signup-dev` (returns 404 on dashboard subdomain). Canonical signup URL is `tesseraai.io/dev`. Founder caught customer-facing bug 2026-05-25 EOD.
+
 ## [0.1.2] -- 2026-05-25
 
 ### Fixed
