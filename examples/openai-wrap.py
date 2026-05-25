@@ -3,7 +3,7 @@ openai-wrap.py — Tessera SDK quick start with the OpenAI Python client.
 
 Prerequisites:
     pip install tessera-llm-proxy openai
-    export TESSERA_KEY=tk_...           # from https://ledger.tesseraai.io/signup-dev
+    export TESSERA_KEY=tk_...           # from https://tesseraai.io/dev
     export OPENAI_API_KEY=sk-...        # your existing OpenAI key
 
 Run:

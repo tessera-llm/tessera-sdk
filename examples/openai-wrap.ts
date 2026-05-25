@@ -3,7 +3,7 @@
  *
  * Prerequisites:
  *   npm install @tessera-llm/tessera-sdk openai
- *   export TESSERA_KEY=tk_...           # from https://ledger.tesseraai.io/signup-dev
+ *   export TESSERA_KEY=tk_...           # from https://tesseraai.io/dev
  *   export OPENAI_API_KEY=sk-...        # your existing OpenAI key
  *
  * Run (with tsx):
