@@ -10,6 +10,10 @@ permissions:
   contents: read
   id-token: write   # OIDC token for sigstore attestation
 
+defaults:
+  run:
+    working-directory: ./node
+
 jobs:
   publish:
     name: Build + publish (sigstore-signed)
@@ -49,7 +53,7 @@ jobs:
           fi
 
       - name: Publish to npm (sigstore-attested)
-        if: steps.check-secret.outputs.skip == "false"
+        if: steps.check-secret.outputs.skip == 'false'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --access public --provenance

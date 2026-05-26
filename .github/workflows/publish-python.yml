@@ -10,6 +10,10 @@ permissions:
   contents: read
   id-token: write   # OIDC token for sigstore attestation / Trusted Publishing
 
+defaults:
+  run:
+    working-directory: ./python
+
 jobs:
   publish:
     name: Build + upload (sigstore-attested)
@@ -42,9 +46,10 @@ jobs:
           fi
 
       - name: Publish to PyPI (with sigstore attestations)
-        if: steps.check-secret.outputs.skip == "false"
+        if: steps.check-secret.outputs.skip == 'false'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{ secrets.PYPI_TOKEN }}
           attestations: true
+          packages-dir: python/dist
 
