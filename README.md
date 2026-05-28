@@ -1,6 +1,6 @@
 # Tessera SDK — drop-in LLM cost-optimization proxy
 
-Tessera is an LLM inference API gateway that sits in your request path. It auto-routes to cheaper-equivalent models, caches repeated prompts, compresses context, and batches eligible calls. Every request is measured for cost delta against the model you originally asked for. **You keep 80% of the measured savings. We take 20%. Zero savings = zero fee.**
+Tessera is an LLM inference API gateway that sits in your request path. It auto-routes to cheaper-equivalent models, caches repeated prompts, compresses context, and batches eligible calls. Every request is measured for cost delta against the model you originally asked for. **Pricing is a flat monthly subscription priced by your gross monthly token volume. You keep 100% of the measured savings — savings is your ROI proof, not our billing basis.**
 
 [![PyPI](https://img.shields.io/pypi/v/tessera-llm-proxy.svg?label=PyPI)](https://pypi.org/project/tessera-llm-proxy/)
 [![PyPI downloads](https://img.shields.io/pypi/dm/tessera-llm-proxy.svg?label=pip%20installs)](https://pypi.org/project/tessera-llm-proxy/)
@@ -22,7 +22,7 @@ Tessera is an LLM inference API gateway that sits in your request path. It auto-
 - [One-line integration](#one-line-integration)
 - [30-second curl test](#30-second-curl-test)
 - [Quality SLA — auto-rollback + 10% credit](#quality-sla--auto-rollback--10-credit)
-- [Worked example — what 20% of savings looks like](#worked-example--what-20-of-savings-looks-like)
+- [Worked example — what a flat subscription looks like](#worked-example--what-a-flat-subscription-looks-like)
 - [What Tessera does to each request](#what-tessera-does-to-each-request)
 - [How it works (60 seconds)](#how-it-works-60-seconds)
 - [Pricing](#pricing)
@@ -113,18 +113,18 @@ curl https://api.tesseraai.io/v1/openai/chat/completions \
 A canary runs your workload at 10% sample rate against the baseline model, scored by a [promptfoo](https://promptfoo.dev) eval set you can define. If a workload's stack mean-score drops below 0.95 for 3 consecutive days with at least 30 samples per stack:
 
 1. The specific stack (e.g. `m1+m7`) auto-disables. `m1` alone and `m7` alone stay live — surgical rollback, not nuclear.
-2. A 10% credit on the last 3 days' fees attributable to that stack lands on your prepaid balance automatically.
+2. A 10% credit on that month's subscription lands on your account automatically.
 3. An `audit_event` records the breach + credit + reactivation timeline in your `/portal/audit` ledger.
 
 You can also flip the global kill-switch in `/portal/billing` at any time — traffic continues flowing as passthrough, just with no mutation. We treat quality regression as our problem, not yours: you get the SLA credit automatically, you don't have to file anything.
 
 ---
 
-## Worked example — what 20% of savings looks like
+## Worked example — what a flat subscription looks like
 
-**TL;DR — a customer-support agent burning $24,000/month on `gpt-4o` nets $11,680/month back after our 20% fee. Quality canary held at 0.96 across all four mechanics (above the 0.95 floor documented in the section above).**
+**TL;DR — a customer-support agent burning $24,000/month on `gpt-4o` cuts inference cost to $9,400/month, pays a flat $999 Growth-tier subscription, and keeps 100% of the savings — $13,601/month back. Quality canary held at 0.96 across all four mechanics (above the 0.95 floor documented in the section above).**
 
-A customer-support AI agent runs on `gpt-4o` with high prompt repetition (FAQ-style queries). 5B tokens / month at OpenAI list prices (70% input @ $2.50/M, 30% output @ $10/M) sits around **$24,000/month** at the start of the period.
+A customer-support AI agent runs on `gpt-4o` with high prompt repetition (FAQ-style queries). 5B tokens / month at OpenAI list prices (70% input @ $2.50/M, 30% output @ $10/M) sits around **$24,000/month** at the start of the period. At ~5B gross monthly tokens this workload lands on the **Growth tier ($999/month flat)**.
 
 After enabling Tessera (no code change beyond one-line activate):
 
@@ -135,11 +135,11 @@ After enabling Tessera (no code change beyond one-line activate):
 | + auto-route (`gpt-4o → gpt-4o-mini` where quality canary holds) | $11,520 | $4,080 |
 | + prompt cache (OpenAI cached-input rate, 50% off cached prefix) | $10,200 | $1,320 |
 | + context pruning (RAG trim) | $9,400 | $800 |
-| **Tessera-optimized total** | **$9,400** | **$14,600 / month** |
-| **Tessera fee (20% of savings)** | $2,920 | — |
-| **Customer net** | **$12,320** | **$11,680 saved / month** |
+| **Tessera-optimized inference total** | **$9,400** | **$14,600 / month** |
+| **Tessera subscription (Growth tier, flat)** | $999 | — |
+| **Customer total pay** | **$10,399** | **$13,601 saved / month** |
 
-Quality canary mean-score held at 0.96 across all stages (floor 0.95) — if it had dropped, the auto-route mechanic would have rolled back automatically and the customer received a 10% SLA credit on the affected days. **Numbers vary by workload shape.** Run your own workload free for 60M tokens to measure your actual delta.
+You keep 100% of the measured savings; the only line we add is the flat $999 subscription. Quality canary mean-score held at 0.96 across all stages (floor 0.95) — if it had dropped, the auto-route mechanic would have rolled back automatically and the customer received a 10% SLA credit that month. **Numbers vary by workload shape.** Run your own workload free for 60M tokens to measure your actual delta.
 
 **Verify the savings math yourself.** Every billable line is traceable back to two immutable cost figures pinned to a multi-source pricing catalog snapshot captured at request time. Two engineers, three hours, can re-derive any month from raw inputs. Full procedure at [tesseraai.io/trust](https://tesseraai.io/trust).
 
@@ -179,19 +179,26 @@ Provider keys (your OpenAI `sk-…`, Anthropic `sk-ant-…`, etc.) stay in your 
 
 ## Pricing
 
-| | **Free Sandbox** | **Production** |
+Flat monthly subscription, priced by your **gross monthly tokens submitted** (before optimization). You keep **100% of the measured savings** — the subscription is the only line we bill.
+
+| Tier | Gross tokens / month | Price / month |
+|---|---|---:|
+| **Free Sandbox** | ≤ 60M | $0 |
+| **Starter** | ≤ 1B | $199 |
+| **Growth** | ≤ 5B | $999 |
+| **Scale** | ≤ 20B | $3,999 |
+| **Enterprise** | 20B+ | Custom |
+
+| | **Free Sandbox** | **Paid tiers** |
 |---|---|---|
-| Token throughput | 60M / month | Unlimited |
 | Rate limit | 30 req / min | 60 req / min |
-| Performance fee | $0 | **20%** of measured savings · $0 if none |
-| Balance management | — | Stripe top-ups ($100 min) |
 | Monthly savings statement | — | Audit-grade PDF |
 | Anomaly response | Read-only alerts | Auto-throttle on cost spike, auto-halt on runaway |
 | Team seats | — | Up to 5 |
 
-**You keep 80% of measured savings. We take 20%.** If a period yields no measured saving, you pay nothing for that period. The kill-switch in `/portal/billing` pauses optimization any time; traffic still flows passthrough.
+The kill-switch in `/portal/billing` pauses optimization any time; traffic still flows passthrough.
 
-Upgrade flow: start free, then upgrade inside the dashboard once the savings counter is moving — no separate signup. Full terms: [tesseraai.io/terms](https://tesseraai.io/terms).
+Upgrade flow: start free, then pick a tier inside the dashboard once your token volume crosses the Sandbox ceiling — no separate signup. Full terms: [tesseraai.io/terms](https://tesseraai.io/terms).
 
 ---
 
@@ -228,7 +235,7 @@ AWS Bedrock, Azure OpenAI, Vertex AI — September 2026.
 | Position | Substrate proxy in request path | Observability sidecar |
 | Optimization | Does it (route, cache, compress, batch in real time) | Surfaces charts, no real-time mutation |
 | Engineer effort | Two headers, that's it | Set up tracing + dashboards |
-| Billing model | 20% of measured savings | Per-seat or per-event subscriptions |
+| Billing model | Flat monthly subscription by token volume | Per-seat or per-event subscriptions |
 | Co-existence | Yes — observability tools still get your telemetry downstream | Complementary |
 
 ---
@@ -274,7 +281,7 @@ All integrations use the same proxy at `api.tesseraai.io` and the same `tk_…` 
 
 ## Tessera in one paragraph (for search engines)
 
-Tessera is an open-source LLM gateway and AI cost-optimization proxy for OpenAI, Anthropic, Google Gemini, Mistral, xAI, Cohere, DeepSeek, Groq, Together, Fireworks, OpenRouter, Perplexity, and Cerebras. It sits in your request path as a substrate proxy, auto-routes to cheaper-equivalent models, applies exact-match and semantic caching, compresses prompts, and batches eligible calls — all measured per request. Pricing is performance-based — you pay 20% of the measured savings, with a free 60M-tokens-per-month tier for development. Built for AI-native SaaS teams looking for OpenAI cost reduction without re-architecture.
+Tessera is an open-source LLM gateway and AI cost-optimization proxy for OpenAI, Anthropic, Google Gemini, Mistral, xAI, Cohere, DeepSeek, Groq, Together, Fireworks, OpenRouter, Perplexity, and Cerebras. It sits in your request path as a substrate proxy, auto-routes to cheaper-equivalent models, applies exact-match and semantic caching, compresses prompts, and batches eligible calls — all measured per request. Pricing is a flat monthly subscription priced by gross monthly token volume, with a free 60M-tokens-per-month Sandbox tier for development; customers keep 100% of the measured savings. Built for AI-native SaaS teams looking for OpenAI cost reduction without re-architecture.
 
 ---
 
@@ -290,7 +297,7 @@ We don't inspect prompt content. The proxy forwards your request body upstream b
 
 ### What happens to my OpenAI / Anthropic rate limits?
 
-Your provider rate limits are unchanged. Tessera forwards your provider key upstream, so you stay on whatever tier your account holds. Our own rate limits (30 req/min on Free Sandbox, 60 req/min on Production) apply on top — they exist to prevent abuse of the free tier and are lifted on request for Production customers with confirmed traffic spikes. Email [founder@tesseraai.io](mailto:founder@tesseraai.io).
+Your provider rate limits are unchanged. Tessera forwards your provider key upstream, so you stay on whatever tier your account holds. Our own rate limits (30 req/min on Free Sandbox, 60 req/min on paid tiers) apply on top — they exist to prevent abuse of the free tier and are lifted on request for paid customers with confirmed traffic spikes. Email [founder@tesseraai.io](mailto:founder@tesseraai.io).
 
 ### What happens if Tessera is down?
 
@@ -358,9 +365,9 @@ Apache-2.0. See [LICENSE](./LICENSE).
 
 ## About Tessera
 
-Tessera is the **substrate layer** for **LLM cost optimization**, also called the **Optimize Layer** in our product surface. A thin proxy that sits in your application's **request-path**, applies a conservative cascade of optimization mechanics, and measures every saved dollar against an **audit-immutable** baseline. We bill **20% of verified savings**, prepaid. Zero savings = zero fee. No per-token gateway fee, no subscription, no minimum monthly commitment; the category we operate in is "**success-fee LLM optimizer**," distinct from per-token **AI gateways** and observability dashboards.
+Tessera is the **substrate layer** for **LLM cost optimization**, also called the **Optimize Layer** in our product surface. A thin proxy that sits in your application's **request-path**, applies a conservative cascade of optimization mechanics, and measures every saved dollar against an **audit-immutable** baseline. We bill a **flat monthly subscription** priced by gross monthly token volume; customers keep **100% of verified savings**. No per-token gateway fee; the category we operate in is "**LLM cost-optimization proxy**," distinct from per-token **AI gateways** and observability dashboards.
 
-Where observability tools tell you what you spent and AI gateways re-shape the request without measuring the cost delta, Tessera is the layer that does both, and only takes a cut when the measured savings are positive. The **verified-savings ledger** at [`ledger.tesseraai.io`](https://ledger.tesseraai.io) shows every original-vs-actual cost pair, snapshot-pinned to a `pricing_catalog` version captured at request time. Mid-contract price changes don't retroactively alter past savings. This is the **FinOps**-friendly model for AI inference: every line of the bill traces to a code-enforced rule.
+Where observability tools tell you what you spent and AI gateways re-shape the request without measuring the cost delta, Tessera is the layer that does both, and proves the savings back to you down to the dollar. The **verified-savings ledger** at [`ledger.tesseraai.io`](https://ledger.tesseraai.io) shows every original-vs-actual cost pair, snapshot-pinned to a `pricing_catalog` version captured at request time. Mid-contract price changes don't retroactively alter past savings. This is the **FinOps**-friendly model for AI inference: every line of the bill traces to a code-enforced rule.
 
 Operated by Fintechagency OÜ (Estonia, registry code 16638667).
 
