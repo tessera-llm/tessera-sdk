@@ -1,7 +1,7 @@
 {
   "name": "@tessera-llm/tessera-sdk",
   "version": "0.1.3",
-  "description": "Tessera SDK — drop-in LLM cost optimization. One line patches OpenAI, Anthropic, Mistral, Groq, Cohere clients to route through Tessera's auto-route + auto-cache + auto-compress + auto-batch proxy. Free 60M tokens/mo. Production: 20% of measured savings, $0 if none.",
+  "description": "Tessera SDK — drop-in LLM cost optimization. One line patches OpenAI, Anthropic, Mistral, Groq, Cohere clients to route through Tessera's auto-route + auto-cache + auto-compress + auto-batch proxy. Free 60M tokens/mo. Paid tiers: flat monthly subscription by token volume, keep 100% of savings.",
   "keywords": [
     "tessera",
     "llm",
