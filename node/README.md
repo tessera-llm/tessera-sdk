@@ -117,19 +117,22 @@ activate("tk_...", {
 
 ## Pricing
 
-Two tiers:
+Flat monthly subscription, priced by your **gross monthly tokens submitted** (before optimization). You keep **100% of the measured savings** — savings is your ROI proof, not the billing basis.
 
-| | **Free Sandbox** | **Production** |
+| Tier | Gross tokens / month | Price / month |
+|---|---|---:|
+| **Free Sandbox** | ≤ 60M | $0 |
+| **Starter** | ≤ 1B | $199 |
+| **Growth** | ≤ 5B | $999 |
+| **Scale** | ≤ 20B | $3,999 |
+| **Enterprise** | 20B+ | Custom |
+
+| | **Free Sandbox** | **Paid tiers** |
 |---|---|---|
-| Token throughput | 60M / month | Unlimited |
 | Rate limit | 30 req / min | 60 req / min |
-| Performance fee | $0 | **20%** of measured savings · $0 if none |
-| Balance management | — | Stripe top-ups ($100 min) |
 | Audit ledger PDF | — | Full traceable spend report |
 | Anomaly response | Observe only | Auto-throttle + auto-halt ladder |
 | Team seats | — | Up to 5 |
-
-**Zero savings = zero fee.** Even on Production, if our optimization doesn't save you anything in a period, you pay nothing for that period.
 
 **Kill-switch** available anytime from your portal — pauses optimization, traffic still flows passthrough.
 

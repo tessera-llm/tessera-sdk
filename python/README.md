@@ -111,9 +111,16 @@ tessera.activate(
 
 ## How the pricing works
 
-- **Free Sandbox tier:** 60M tokens/month, no card required, $0 fee.
-- **Production tier:** **20%** of measured savings, debited daily from a prepaid balance you control ($100 minimum top-up via Stripe).
-- **Zero savings = zero fee.** If our optimization doesn't save you anything in a period, you pay nothing for that period.
+Flat monthly subscription, priced by your **gross monthly tokens submitted** (before optimization). You keep **100% of the measured savings** — savings is your ROI proof, not the billing basis.
+
+| Tier | Gross tokens / month | Price / month |
+| --- | --- | --- |
+| **Free Sandbox** | ≤ 60M | $0 (no card required) |
+| **Starter** | ≤ 1B | $199 |
+| **Growth** | ≤ 5B | $999 |
+| **Scale** | ≤ 20B | $3,999 |
+| **Enterprise** | 20B+ | Custom |
+
 - **Kill-switch** available anytime from your portal — pauses optimization, traffic still flows passthrough.
 
 Full terms: <https://tesseraai.io/terms>
