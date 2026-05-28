@@ -318,7 +318,7 @@ The SDK is the integration surface — the part you ship in your binary. Apache-
 
 ### How is the savings number computed — couldn't you inflate it?
 
-Each request emits two cost figures: `original_cost_usd` (priced at the **requested** model's catalog rate) and `actual_cost_usd` (priced at the **actual** model after routing + cache hits + provider discounts). Both rates are pinned to a [`pricing_catalog`](https://tesseraai.io/how-it-works) snapshot version id captured at the request — immutable, with multi-source verification (LiteLLM + tokencost + OpenRouter API + direct provider docs, confidence-scored). Mid-contract price changes don't retroactively alter past savings. The audit ledger is yours to export.
+Each request emits two cost figures: `original_cost_usd` (priced at the **requested** model's catalog rate) and `actual_cost_usd` (priced at the **actual** model after routing + cache hits + provider discounts). Both rates are pinned to a [`pricing_catalog`](https://tesseraai.io/how-it-works) snapshot version id captured at the request — immutable, with multi-source verification (LiteLLM + tokencost + OpenRouter API — all three must agree within 1%, confidence-scored). Mid-contract price changes don't retroactively alter past savings. The audit ledger is yours to export.
 
 ### Can I see which mechanics fired on a specific request?
 
